@@ -1,0 +1,39 @@
+name: Exression
+run-name: Ejecutando Expressions
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+    inputs:
+      edad:
+        description: "Edad"
+        required: true
+        type: number
+        default: 28
+      nombre:
+        description: "Nombre"
+        required: true
+        type: string
+        default: "Carlos"
+jobs:
+  mayor:
+    if: ${{ inputs.edad >= 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Iniciando Script Valido
+        run: echo "${{ inputs.nombre }} es mayor de edad"
+  menor:
+    if: ${{ inputs.edad < 18 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Iniciando Script Invalido
+        run: echo "${{ inputs.nombre }} es menor de edad"
+        
+  execute-python-conditions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "EDAD=${{ inputs.edad }}" >> $GITHUB_ENV
+      - run: echo "NOMBRE=${{ inputs.nombre }}" >> $GITHUB_ENV
+      - uses: actions/checkout@v6 
+      - run: python conditions.py
