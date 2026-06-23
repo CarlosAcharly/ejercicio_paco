@@ -1,0 +1,26 @@
+name: Variables
+
+on: [push]
+
+env:
+  PORT: 8080
+  DAY_OF_WEEK: Martes
+  MONTH_NAME: Junio
+  YEAR: 2026
+
+jobs:
+  mostrar-variables:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Mostrar fecha
+        run: echo "Hoy es $DAY_OF_WEEK de $MONTH_NAME del año $YEAR"
+
+      - name: Mostrar puerto
+        run: echo "El puerto es $PORT"
+
+      - name: Run Python script
+        run: python variables.py
